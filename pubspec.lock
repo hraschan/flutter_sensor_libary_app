@@ -102,15 +102,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
-  sensor_libary:
+  sensor_library:
     dependency: "direct main"
     description:
       path: "."
       ref: master
-      resolved-ref: d6efdbf2e173d8b10df9b631b9ff4df5c3968e80
-      url: "https://github.com/hraschan/flutter_sensor_libary.git"
+      resolved-ref: "9794b7ff34209f6a558e13efb22dbdeb89767977"
+      url: "https://github.com/hraschan/flutter_sensor_library.git"
     source: git
-    version: "0.0.2"
+    version: "0.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
