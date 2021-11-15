@@ -77,20 +77,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   GridView.count(
                     crossAxisCount: 2,
                     children: const [
-                      OverviewButton('Kompass', KompassRoute()),
-                      OverviewButton('Proximity', ProximitiyRoute()),
-                      OverviewButton('Barometer', BarometerRoute()),
-                      OverviewButton('Accelerometer', AccelerometerRoute()),
-                      OverviewButton('Geolocator', GeolocatorRoute()),
-                      OverviewButton('Gyroscope', GyroscopeRoute()),
-                      OverviewButton('Lightsensor', LightsensorRoute()),
+                      _OverviewButton('Kompass', KompassRoute()),
+                      _OverviewButton('Proximity', ProximitiyRoute()),
+                      _OverviewButton('Barometer', BarometerRoute()),
+                      _OverviewButton('Accelerometer', AccelerometerRoute()),
+                      _OverviewButton('Geolocator', GeolocatorRoute()),
+                      _OverviewButton('Gyroscope', GyroscopeRoute()),
+                      _OverviewButton('Lightsensor', LightsensorRoute()),
                     ],
                   ),
                   GridView.count(
                     crossAxisCount: 2,
                     children: const [
-                      OverviewButton('Wetter App', WeatherRoute()),
-                      OverviewButton('Ball in the Bowl', BallInTheBowlRoute()),
+                      _OverviewButton('Wetter App', WeatherRoute()),
+                      _OverviewButton('Ball in the Bowl', BallInTheBowlRoute()),
                     ],
                   ),
                 ]))));
@@ -98,11 +98,12 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 
-class OverviewButton extends StatelessWidget {
+class _OverviewButton extends StatelessWidget {
   final String title;
-  final route;
+  final dynamic route;
 
-  const OverviewButton(this.title, this.route);
+  // ignore: use_key_in_widget_constructors
+  const _OverviewButton(this.title, this.route);
 
   @override
   Widget build(BuildContext context) {
@@ -141,3 +142,5 @@ class OverviewButton extends StatelessWidget {
     );
   }
 }
+
+
