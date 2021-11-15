@@ -8,7 +8,6 @@ import 'package:sensor_libary_test_app/routes/kompass_route.dart';
 import 'package:sensor_libary_test_app/routes/lightsensor_route.dart';
 import 'package:sensor_libary_test_app/routes/proximitiy_route.dart';
 import 'package:sensor_libary_test_app/routes/weather_route.dart';
-import 'package:sensor_libary_test_app/widgets/overview_navigation_button.dart';
 import 'package:sensor_library/sensor_library.dart';
 import 'themes/custom_theme.dart';
 
@@ -67,75 +66,319 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                     indicatorColor: Theme.of(context).indicatorColor,
                     labelColor: Colors.black,
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                    labelStyle: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   title: Text(widget.title),
                   backgroundColor: Theme.of(context).backgroundColor,
-                  titleTextStyle: TextStyle(fontWeight: FontWeight.bold),
+                  titleTextStyle: const TextStyle(fontWeight: FontWeight.bold),
                   foregroundColor: Theme.of(context).primaryColor,
                 ),
                 body: TabBarView(children: [
                   GridView.count(
                     crossAxisCount: 2,
                     children: [
-                      OverviewNavigationButton(
-                        title: 'Kompass',
-                        icon: const Icon(Icons.compass_calibration),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const KompassRoute()),
+                      // ToDo: Make Widget for OverviewButtons
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Kompass'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const KompassRoute()));
+                          },
+                        ),
                       ),
-                      OverviewNavigationButton(
-                        title: 'Proximitiy',
-                        icon: const Icon(Icons.compass_calibration),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const ProximitiyRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Proximitiy'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const ProximitiyRoute()));
+                          },
+                        ),
                       ),
-                      OverviewNavigationButton(
-                        title: 'Barometer',
-                        icon: const Icon(Icons.compass_calibration),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const BarometerRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Barometer'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BarometerRoute()));
+                          },
+                        ),
                       ),
-                      OverviewNavigationButton(
-                        title: 'Accelerometer',
-                        icon: const Icon(Icons.compass_calibration),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const AccelerometerRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Accelerometer'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const AccelerometerRoute()));
+                          },
+                        ),
                       ),
-                      OverviewNavigationButton(
-                        title: 'Geolocator',
-                        icon: const Icon(Icons.compass_calibration),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const GeolocatorRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Geolocator'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const GeolocatorRoute()));
+                          },
+                        ),
                       ),
-                      OverviewNavigationButton(
-                        title: 'Gyroscope',
-                        icon: const Icon(Icons.compass_calibration),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const GyroscopeRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Gyroscope'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const GyroscopeRoute()));
+                          },
+                        ),
                       ),
-                      OverviewNavigationButton(
-                        title: 'Lightsensor',
-                        icon: const Icon(Icons.compass_calibration),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const LightsensorRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Lightsensor'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const LightsensorRoute()));
+                          },
+                        ),
                       ),
                     ],
                   ),
                   GridView.count(
                     crossAxisCount: 2,
                     children: [
-                      OverviewNavigationButton(
-                        title: 'Wetter App',
-                        icon: const Icon(Icons.water_damage),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const WeatherRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Wetter App'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const WeatherRoute()));
+                          },
+                        ),
                       ),
-                      OverviewNavigationButton(
-                        title: 'Ball in the bowl',
-                        icon: const Icon(Icons.sports_volleyball),
-                        pageRoute: MaterialPageRoute(
-                            builder: (context) => const BallInTheBowlRoute()),
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).backgroundColor),
+                              foregroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor)),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Padding(
+                                  padding: EdgeInsets.all(20.0),
+                                  child: Icon(
+                                    Icons.compass_calibration,
+                                    size: 50.0,
+                                    color: Color(0xFF636060),
+                                  )),
+                              Text('Ball in the Bowl'.toUpperCase(),
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const BallInTheBowlRoute()));
+                          },
+                        ),
                       ),
                     ],
                   ),
