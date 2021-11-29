@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:sensor_libary_test_app/themes/custom_colors.dart';
+import 'dart:math' show cos, sqrt, asin;
 
 class GeolocatorRoute extends StatelessWidget {
   const GeolocatorRoute({Key? key}) : super(key: key);
@@ -11,8 +12,11 @@ class GeolocatorRoute extends StatelessWidget {
     final LatLng currentLocation = LatLng(48.207370, 16.365610);
     final LatLng rememberdLocation = LatLng(48.209209, 16.372780);
 
-    //var distance = Distance(calculator: )
-    var distance = 0.00;
+    var distance = calculateDistance(
+        currentLocation.latitude,
+        currentLocation.longitude,
+        rememberdLocation.latitude,
+        rememberdLocation.longitude);
 
     const space = 20.0;
 
@@ -173,7 +177,7 @@ class GeolocatorRoute extends StatelessWidget {
                           TableCell(
                             child: Padding(
                               padding: tablePadding,
-                              child: Text(distance.toString() + ' M'),
+                              child: Text(distance.toString() + ' km'),
                             ),
                           )
                         ]),
@@ -233,4 +237,13 @@ class GeolocatorRoute extends StatelessWidget {
               ])
             ])));
   }
+}
+
+double calculateDistance(lat1, lon1, lat2, lon2) {
+  var p = 0.017453292519943295;
+  var c = cos;
+  var a = 0.5 -
+      c((lat2 - lat1) * p) / 2 +
+      c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+  return 12742 * asin(sqrt(a));
 }
