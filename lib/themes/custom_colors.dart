@@ -8,7 +8,9 @@ const SecondaryColor = Color(0xFF636060);
 const SecondaryColorLight = Color(0xFF908d8d);
 const SecondaryColorDark = Color(0xFF393636);
 
-const Background = Color(0xFFF2F2F2);
+const White = Color(0xFFFFFFFF);
+const AccentWhite = Color(0xFFF2F2F2);
+const Background = Color(0xFFE5E5E5);
 const TextColor = Color(0xFF000000);
 
 MaterialColor createMaterialColor(Color color) {
