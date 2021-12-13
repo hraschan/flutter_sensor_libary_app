@@ -38,6 +38,7 @@ dependencies:
       url: https://github.com/hraschan/flutter_sensor_library.git
       ref: master
   flutter_map: ^0.14.0
+  weather_icons: ^3.0.0
 
 dev_dependencies:
   flutter_test:
