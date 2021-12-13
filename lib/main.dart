@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
             appBar: AppBar(
               bottom: TabBar(
                 tabs: [
-                  Tab(text: "Sensorbased".toUpperCase()),
+                  Tab(text: "Base Usage".toUpperCase()),
                   Tab(text: "Advanced Usage".toUpperCase())
                 ],
                 indicatorColor: Theme.of(context).indicatorColor,
@@ -64,28 +64,47 @@ class _MyHomePageState extends State<MyHomePage> {
               GridView.count(
                 crossAxisCount: 2,
                 children: const [
-                  OverviewButtonWidget(title: 'Kompass', route: KompassRoute()),
                   OverviewButtonWidget(
-                      title: 'Proximity', route: ProximitiyRoute()),
+                      title: 'Compass',
+                      route: KompassRoute(),
+                      iconData: Icons.explore_outlined),
                   OverviewButtonWidget(
-                      title: 'Barometer', route: BarometerRoute()),
+                      title: 'Proximity', // Abstand
+                      route: ProximitiyRoute(),
+                      iconData: Icons.swap_horiz),
                   OverviewButtonWidget(
-                      title: 'Accelerometer', route: AccelerometerRoute()),
+                      title: 'Barometer', // Luftdruck
+                      route: BarometerRoute(),
+                      iconData: Icons.air),
                   OverviewButtonWidget(
-                      title: 'Geolocator', route: GeolocatorRoute()),
+                      title: 'Accelerometer', // Beschleunigung
+                      route: AccelerometerRoute(),
+                      iconData: Icons.speed),
                   OverviewButtonWidget(
-                      title: 'Gyroscope', route: GyroscopeRoute()),
+                      title: 'Geolocator',
+                      route: GeolocatorRoute(),
+                      iconData: Icons.place),
                   OverviewButtonWidget(
-                      title: 'Lightsensor', route: LightsensorRoute()),
+                      title: 'Gyroscope',
+                      route: GyroscopeRoute(),
+                      iconData: Icons.view_in_ar),
+                  OverviewButtonWidget(
+                      title: 'Lightsensor',
+                      route: LightsensorRoute(),
+                      iconData: Icons.lightbulb_outline),
                 ],
               ),
               GridView.count(
                 crossAxisCount: 2,
                 children: const [
                   OverviewButtonWidget(
-                      title: 'Wetter App', route: WeatherRoute()),
+                      title: 'Weather',
+                      route: WeatherRoute(),
+                      iconData: Icons.cloud),
                   OverviewButtonWidget(
-                      title: 'Ball in the Bowl', route: BallInTheBowlRoute()),
+                      title: 'Ball in the Bowl',
+                      route: BallInTheBowlRoute(),
+                      iconData: Icons.sports_volleyball)
                 ],
               ),
             ])));
