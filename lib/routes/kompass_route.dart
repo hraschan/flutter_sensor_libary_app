@@ -22,8 +22,7 @@ class _KompassRouteState extends State<KompassRoute> {
     position.getCurrentHeading().forEach((element) {
       if(mounted){
         setState(() => {
-          direction = element,
-          print(element)
+          direction = element
         });
       }
     });
