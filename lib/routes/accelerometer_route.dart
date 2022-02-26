@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_libary_test_app/routes/accelerometer_recording_route.dart';
+import 'package:sensor_libary_test_app/widgets/record_button_widget.dart';
 import 'package:sensor_library/models/raw_sensors/accelerometer.dart';
 import 'package:sensor_library/models/return_types/sensor_vector_3.dart';
 
@@ -66,7 +68,8 @@ class _AccelerometerState extends State<AccelerometerRoute> {
         ),
         body: ListView(
           padding: const EdgeInsets.all(8),
-          children: <Widget>[
+          children: [
+            const RecordButtonWidget(route: AccelerometerRecordingRoute()),
             Container(
               color: Colors.blueGrey[300],
               width: MediaQuery.of(context).size.width,
@@ -87,7 +90,7 @@ class _AccelerometerState extends State<AccelerometerRoute> {
                     )),
               ),
             ),
-            Container(
+            SizedBox(
               height: 60,
               child: Center(
                   child: Text(
