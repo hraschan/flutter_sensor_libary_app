@@ -34,9 +34,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   sensor_library:
-    git:
-      url: https://github.com/hraschan/flutter_sensor_library.git
-      ref: master
+    path: 'D:\Projects_FH\Mob_SensorLibrary'
   flutter_map: ^0.14.0
   weather_icons: ^3.0.0
 

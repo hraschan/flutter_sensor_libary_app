@@ -135,6 +135,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.8.1"
+  light:
+    dependency: transitive
+    description:
+      name: light
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
   lints:
     dependency: transitive
     description:
@@ -208,11 +215,9 @@ packages:
   sensor_library:
     dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: a126079854ade9c3cde44d9160db9057ed4dd1e1
-      url: "https://github.com/hraschan/flutter_sensor_library.git"
-    source: git
+      path: "D:\\Projects_FH\\Mob_SensorLibrary"
+      relative: false
+    source: path
     version: "0.0.1"
   sensors_plus:
     dependency: transitive
