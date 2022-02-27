@@ -91,7 +91,7 @@ class WeatherRoute extends StatelessWidget {
 
 String getCurrentDateTime() {
   DateTime now = DateTime.now();
-  DateFormat formater = DateFormat('EEE., dd. MMMM yyyy HH:m');
+  DateFormat formater = DateFormat('EEE., dd. MMMM yyyy HH:mm');
   return formater.format(now) + ' Uhr';
 }
 
