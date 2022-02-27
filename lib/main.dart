@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
               backgroundColor: Theme.of(context).backgroundColor,
               titleTextStyle: const TextStyle(
                   fontWeight: FontWeight.bold, color: PrimaryColor),
-              foregroundColor: Theme.of(context).primaryColorDark,
+              foregroundColor: Theme.of(context).primaryColor,
             ),
             body: TabBarView(children: [
               GridView.count(
