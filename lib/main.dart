@@ -8,6 +8,7 @@ import 'package:sensor_libary_test_app/routes/kompass_route.dart';
 import 'package:sensor_libary_test_app/routes/lightsensor_route.dart';
 import 'package:sensor_libary_test_app/routes/proximitiy_route.dart';
 import 'package:sensor_libary_test_app/routes/weather_route.dart';
+import 'package:sensor_libary_test_app/themes/custom_colors.dart';
 import 'themes/custom_theme.dart';
 import 'widgets/overview_button_widget.dart';
 
@@ -52,13 +53,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   Tab(text: "Advanced Usage".toUpperCase())
                 ],
                 indicatorColor: Theme.of(context).indicatorColor,
-                labelColor: Colors.black,
+                labelColor: Theme.of(context).indicatorColor,
+                unselectedLabelColor: Colors.black,
                 labelStyle: const TextStyle(fontWeight: FontWeight.bold),
               ),
               title: Text(widget.title),
               backgroundColor: Theme.of(context).backgroundColor,
-              titleTextStyle: const TextStyle(fontWeight: FontWeight.bold),
-              foregroundColor: Theme.of(context).primaryColor,
+              titleTextStyle: const TextStyle(
+                  fontWeight: FontWeight.bold, color: PrimaryColor),
+              foregroundColor: Theme.of(context).primaryColorDark,
             ),
             body: TabBarView(children: [
               GridView.count(
