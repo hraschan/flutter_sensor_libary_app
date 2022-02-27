@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_libary_test_app/widgets/coming_soon_info_widget.dart';
 
 class LightsensorRoute extends StatelessWidget {
   const LightsensorRoute({Key? key}) : super(key: key);
@@ -9,14 +10,7 @@ class LightsensorRoute extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Lightsensor"),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
+      body: const ComingSoonInfoWidget(),
     );
   }
 }
