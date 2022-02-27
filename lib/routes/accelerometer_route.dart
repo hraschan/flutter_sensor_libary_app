@@ -38,7 +38,7 @@ class _AccelerometerState extends State<AccelerometerRoute> {
     double newAccelerometerX = element.x;
     double newAccelerometerY = element.y;
     double newAccelerometerZ = element.z;
-    setState(() {
+    setStateIfMounted(() {
       accelerometerX = -newAccelerometerX;
       accelerometerY = newAccelerometerY;
       accelerometerZ = newAccelerometerZ;
@@ -58,6 +58,10 @@ class _AccelerometerState extends State<AccelerometerRoute> {
       movementX += accelerometerX * xSpeed;
       movementY += accelerometerY * ySpeed;
     });
+  }
+
+  void setStateIfMounted(f) {
+    if (mounted) setState(f);
   }
 
   @override

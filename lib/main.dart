@@ -75,10 +75,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       title: 'Proximity', // Abstand
                       route: ProximitiyRoute(),
                       iconData: Icons.swap_horiz),
-                  /* OverviewButtonWidget(
+                  OverviewButtonWidget(
                       title: 'Barometer', // Luftdruck
                       route: BarometerRoute(),
-                      iconData: Icons.air), */
+                      iconData: Icons.air),
                   OverviewButtonWidget(
                       title: 'Accelerometer', // Beschleunigung
                       route: AccelerometerRoute(),
