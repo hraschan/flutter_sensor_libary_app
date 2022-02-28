@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(title: 'SENSOR LIBRARY DEMO APP'),
       theme: MyTheme.lightTheme,
     );
@@ -104,10 +104,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       title: 'Weather',
                       route: WeatherRoute(),
                       iconData: Icons.cloud),
-                  OverviewButtonWidget(
+                  /*OverviewButtonWidget(
                       title: 'Ball in the Bowl',
                       route: BallInTheBowlRoute(),
-                      iconData: Icons.sports_volleyball)
+                      iconData: Icons.sports_volleyball)*/
                 ],
               ),
             ])));
