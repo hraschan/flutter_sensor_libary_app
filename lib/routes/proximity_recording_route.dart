@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_libary_test_app/widgets/coming_soon_info_widget.dart';
 
 class ProximityRecordingRoute extends StatelessWidget {
   const ProximityRecordingRoute({Key? key}) : super(key: key);
@@ -9,14 +10,7 @@ class ProximityRecordingRoute extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Proximity Recording"),
       ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
-        ),
-      ),
+      body: const ComingSoonInfoWidget(),
     );
   }
 }

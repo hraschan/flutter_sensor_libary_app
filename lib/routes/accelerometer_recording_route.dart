@@ -17,7 +17,7 @@ class _AccelerometerRecordingState extends State<AccelerometerRecordingRoute> {
 
   Timer? timer;
 
-  var startButtonText = "Start Recording";
+  var startButtonText = "START Recording";
 
   var minAcc = "...";
   var maxAcc = "...";
@@ -44,7 +44,10 @@ class _AccelerometerRecordingState extends State<AccelerometerRecordingRoute> {
   void _startRecording() {
     print("START");
 
-    setState(() {
+    setStateIfMounted(() {
+      minAcc = "";
+      maxAcc = "";
+      averageAcc = "";
       records = <TableRow>[];
     });
 
@@ -60,7 +63,7 @@ class _AccelerometerRecordingState extends State<AccelerometerRecordingRoute> {
     var maxValue = movement.getMaxAcceleration();
     var averageValue = movement.getAvgAcceleration();
 
-    setState(() {
+    setStateIfMounted(() {
       minAcc = minValue.value.toString();
       maxAcc = maxValue.value.toString();
       averageAcc = averageValue.value.toString();
@@ -84,19 +87,21 @@ class _AccelerometerRecordingState extends State<AccelerometerRecordingRoute> {
                 child: Column(
                   children: [
                     Row(children: [
-                      ElevatedButton(
+                      Expanded(
+                          child: ElevatedButton(
                         onPressed: () {
                           _startRecording();
                         },
                         child: Text(startButtonText),
-                      ),
+                      )),
                       const SizedBox(width: 20),
-                      ElevatedButton(
+                      Expanded(
+                          child: ElevatedButton(
                         onPressed: () {
                           _stopRecording();
                         },
                         child: const Text('STOP Recording'),
-                      )
+                      ))
                     ]),
                     const SizedBox(height: 20),
                     Table(
@@ -186,8 +191,12 @@ class _AccelerometerRecordingState extends State<AccelerometerRecordingRoute> {
     var updatedRecors = records;
     updatedRecors.add(newRecord);
 
-    setState(() {
+    setStateIfMounted(() {
       records = updatedRecors;
     });
+  }
+
+  void setStateIfMounted(f) {
+    if (mounted) setState(f);
   }
 }

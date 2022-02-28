@@ -2,21 +2,44 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:sensor_libary_test_app/themes/custom_colors.dart';
+import 'package:sensor_library/models/raw_sensors/gps.dart';
+import 'package:sensor_library/models/return_types/direction.dart';
 import 'dart:math' show cos, sqrt, asin;
 
-class GeolocatorRoute extends StatelessWidget {
+import 'package:sensor_library/models/value_interpret/position.dart';
+
+class GeolocatorRoute extends StatefulWidget {
   const GeolocatorRoute({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final LatLng currentLocation = LatLng(48.207370, 16.365610);
-    final LatLng rememberdLocation = LatLng(48.209209, 16.372780);
+  _GeolocatorRouteState createState() => _GeolocatorRouteState();
+}
 
-    var distance = calculateDistance(
-        currentLocation.latitude,
-        currentLocation.longitude,
-        rememberdLocation.latitude,
-        rememberdLocation.longitude);
+class _GeolocatorRouteState extends State<GeolocatorRoute> {
+  late LatLng currentLocation;
+  // final LatLng rememberdLocation = LatLng(48.209209, 16.372780);
+
+  var tablePadding = const EdgeInsets.all(15.0);
+
+  late Position pos;
+  late Gps gps;
+  String currentDirection = "...";
+
+  @override
+  void initState() {
+    super.initState();
+
+    pos = Position(inMillis: 500);
+    gps = Gps(inMillis: 500);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //var distance = calculateDistance(
+    //    currentLocation.latitude,
+    //    currentLocation.longitude,
+    //    rememberdLocation.latitude,
+    //    rememberdLocation.longitude);
 
     const space = 20.0;
 
@@ -26,7 +49,17 @@ class GeolocatorRoute extends StatelessWidget {
         verticalInside:
             BorderSide(width: 2, color: Background, style: BorderStyle.solid));
 
-    var tablePadding = const EdgeInsets.all(15.0);
+    gps.getRaw().listen((element) {
+      setStateIfMounted(() {
+        currentLocation = LatLng(element.latitude, element.longitude);
+      });
+    });
+
+    pos.getCurrentDirection().forEach((element) {
+      setStateIfMounted(() {
+        currentDirection = getCurrentDirection(element);
+      });
+    });
 
     return Scaffold(
         appBar: AppBar(
@@ -61,107 +94,162 @@ class GeolocatorRoute extends StatelessWidget {
                             child: const Icon(Icons.my_location,
                                 color: PrimaryColor, size: 40.0)),
                       ),
-                      Marker(
+                      /*Marker(
                         width: 80.0,
                         height: 80.0,
                         point: rememberdLocation,
                         builder: (ctx) => const Icon(Icons.location_on,
                             color: PrimaryColor, size: 40.0),
-                      ),
+                      ),*/
                     ],
                   ),
                 ],
               ),
-              Column(children: [
-                const SizedBox(height: space),
-                Table(
-                  border: tableBorder,
-                  children: [
-                    TableRow(
-                        decoration: const BoxDecoration(color: AccentWhite),
-                        children: [
-                          TableCell(
-                            child: Padding(
-                                padding: tablePadding,
-                                child: const Text('Standortdienst',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold))),
-                          ),
-                          TableCell(
+              SingleChildScrollView(
+                child: Column(children: [
+                  const SizedBox(height: space),
+                  Table(
+                    border: tableBorder,
+                    children: [
+                      TableRow(
+                          decoration: const BoxDecoration(color: AccentWhite),
+                          children: [
+                            TableCell(
                               child: Padding(
-                            padding: tablePadding,
-                            child: const Text(
-                              'AKTIVIERT',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: PrimaryColor),
+                                  padding: tablePadding,
+                                  child: const Text('Standortdienst',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold))),
                             ),
-                          ))
-                        ]),
-                    TableRow(
-                        decoration: const BoxDecoration(color: AccentWhite),
-                        children: [
-                          TableCell(
-                            verticalAlignment:
-                                TableCellVerticalAlignment.middle,
-                            child: Padding(
-                                padding: tablePadding,
-                                child: const Text('Aktueller Standort',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold))),
-                          ),
-                          TableCell(
-                            verticalAlignment:
-                                TableCellVerticalAlignment.middle,
-                            child: Padding(
+                            TableCell(
+                                child: Padding(
                               padding: tablePadding,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Lat: ' +
-                                        currentLocation.latitude.toString(),
-                                    textAlign: TextAlign.left,
+                              child: const Text(
+                                'AKTIVIERT',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: PrimaryColor),
+                              ),
+                            ))
+                          ]),
+                      TableRow(
+                          decoration: const BoxDecoration(color: AccentWhite),
+                          children: [
+                            TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Padding(
+                                  padding: tablePadding,
+                                  child: const Text('Standort',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold))),
+                            ),
+                            TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Padding(
+                                padding: tablePadding,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Lat: ' +
+                                          currentLocation.latitude.toString(),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      'Lng: ' +
+                                          currentLocation.longitude.toString(),
+                                      textAlign: TextAlign.left,
+                                    )
+                                  ],
+                                ),
+                              ),
+                            )
+                          ]),
+                      TableRow(
+                          decoration: const BoxDecoration(color: AccentWhite),
+                          children: [
+                            TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Padding(
+                                  padding: tablePadding,
+                                  child: const Text('Ausrichtung',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold))),
+                            ),
+                            TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Padding(
+                                padding: tablePadding,
+                                child: Text(currentDirection),
+                              ),
+                            )
+                          ]),
+                      /*TableRow(
+                          decoration: const BoxDecoration(color: AccentWhite),
+                          children: [
+                            TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Padding(
+                                  padding: tablePadding,
+                                  child: const Text('Letzter Standort',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold))),
+                            ),
+                            TableCell(
+                              verticalAlignment:
+                                  TableCellVerticalAlignment.middle,
+                              child: Padding(
+                                padding: tablePadding,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text('Lat: ' + rememberdLocation.latitude.toString()),
+                                    Text('Lng: ' + rememberdLocation.longitude.toString())
+                                  ],
+                                ),
+                              ),
+                            )
+                          ]),*/
+                      /*TableRow(
+                          decoration: const BoxDecoration(color: AccentWhite),
+                          children: [
+                            TableCell(
+                              child: Padding(
+                                  padding: tablePadding,
+                                  child: const Text('Entfernung',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold))),
+                            ),
+                            TableCell(
+                              child: Padding(
+                                  padding: tablePadding,
+                                  child: Text(distance.toString() + ' km'),
                                   ),
-                                  Text(
-                                    'Lng: ' +
-                                        currentLocation.longitude.toString(),
-                                    textAlign: TextAlign.left,
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ]),
+                            )
+                          ]),*/
+                    ],
+                  ),
+                  /* const SizedBox(height: space),
+                  Table(border: tableBorder, children: [
                     TableRow(
-                        decoration: const BoxDecoration(color: AccentWhite),
+                        //decoration: BoxDecoration(color: AccentWhite),
                         children: [
                           TableCell(
-                            verticalAlignment:
-                                TableCellVerticalAlignment.middle,
                             child: Padding(
                                 padding: tablePadding,
-                                child: const Text('Letzter Standort',
+                                child: const Text('Einheiten',
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold))),
                           ),
                           TableCell(
-                            verticalAlignment:
-                                TableCellVerticalAlignment.middle,
-                            child: Padding(
-                              padding: tablePadding,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text('Lat: ' +
-                                      rememberdLocation.latitude.toString()),
-                                  Text('Lng: ' +
-                                      rememberdLocation.longitude.toString())
-                                ],
-                              ),
-                            ),
+                            child: Padding(padding: tablePadding),
                           )
                         ]),
                     TableRow(
@@ -177,65 +265,35 @@ class GeolocatorRoute extends StatelessWidget {
                           TableCell(
                             child: Padding(
                               padding: tablePadding,
-                              child: Text(distance.toString() + ' km'),
+                              child: const Text('Kilometer'),
                             ),
                           )
                         ]),
-                  ],
-                ),
-                const SizedBox(height: space),
-                Table(border: tableBorder, children: [
-                  TableRow(
-                      //decoration: BoxDecoration(color: AccentWhite),
-                      children: [
-                        TableCell(
-                          child: Padding(
-                              padding: tablePadding,
-                              child: const Text('Einheiten durch Standort:',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                        ),
-                        TableCell(
-                          child: Padding(padding: tablePadding),
-                        )
-                      ]),
-                  TableRow(
-                      decoration: const BoxDecoration(color: AccentWhite),
-                      children: [
-                        TableCell(
-                          child: Padding(
-                              padding: tablePadding,
-                              child: const Text('Entfernung',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding: tablePadding,
-                            child: const Text('Kilometer'),
+                    TableRow(
+                        decoration: const BoxDecoration(color: AccentWhite),
+                        children: [
+                          TableCell(
+                            child: Padding(
+                                padding: tablePadding,
+                                child: const Text('Temperatur',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold))),
                           ),
-                        )
-                      ]),
-                  TableRow(
-                      decoration: const BoxDecoration(color: AccentWhite),
-                      children: [
-                        TableCell(
-                          child: Padding(
+                          TableCell(
+                            child: Padding(
                               padding: tablePadding,
-                              child: const Text('Temperatur',
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold))),
-                        ),
-                        TableCell(
-                          child: Padding(
-                            padding: tablePadding,
-                            child: const Text('Grad Celsius'),
-                          ),
-                        )
-                      ]),
-                ])
-              ])
+                              child: const Text('Grad Celsius'),
+                            ),
+                          )
+                        ]),
+                  ])*/
+                ]),
+              )
             ])));
+  }
+
+  void setStateIfMounted(f) {
+    if (mounted) setState(f);
   }
 }
 
@@ -246,4 +304,21 @@ double calculateDistance(lat1, lon1, lat2, lon2) {
       c((lat2 - lat1) * p) / 2 +
       c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
   return 12742 * asin(sqrt(a));
+}
+
+String getCurrentDirection(Direction direction) {
+  if (direction == Direction.north) {
+    return "Norden";
+  }
+  if (direction == Direction.east) {
+    return "Osten";
+  }
+  if (direction == Direction.south) {
+    return "Süden";
+  }
+  if (direction == Direction.west) {
+    return "Westen";
+  }
+
+  return "Undefined";
 }

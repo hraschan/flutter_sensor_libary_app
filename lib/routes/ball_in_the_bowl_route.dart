@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sensor_libary_test_app/widgets/coming_soon_info_widget.dart';
 
 class BallInTheBowlRoute extends StatelessWidget {
   const BallInTheBowlRoute({Key? key}) : super(key: key);
@@ -6,17 +7,9 @@ class BallInTheBowlRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Ball in the Bowl"),
-      ),
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: const Text('Go back!'),
+        appBar: AppBar(
+          title: const Text("Ball in the Bowl"),
         ),
-      ),
-    );
+        body: const ComingSoonInfoWidget());
   }
 }
