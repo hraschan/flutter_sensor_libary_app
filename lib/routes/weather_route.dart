@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sensor_libary_test_app/themes/custom_colors.dart';
+import 'package:sensor_library/models/raw_sensors/humidity.dart';
 import 'package:sensor_library/models/raw_sensors/temperature.dart';
 import 'package:weather_icons/weather_icons.dart';
 
@@ -27,13 +28,14 @@ class _WeatherRouteState extends State<WeatherRoute> {
   var now = getCurrentDateTime();
   var location = 'Wien';
   var currentWeatherState = WeatherState.schneefall;
-  double feelingTemperature = 0;
-  var airPressure = 998;
-  double temperature = 0;
+  double feelingTemperature = 0.0;
+  double humidity = 0.0;
+  double temperature = 0.0;
   // var currentWeatherString = getCurrentWeatherString(currentWeatherState);
   var currentWeather = getCurrentWeather(state: WeatherState.schneefall);
 
   late Temperature temp;
+  late Humidity hum;
 
   @override
   void initState() {
@@ -47,6 +49,14 @@ class _WeatherRouteState extends State<WeatherRoute> {
         temperature = value;
         feelingTemperature = value;
         currentWeather = getCurrentWeather(state: currentWeatherState);
+      });
+    });
+
+    hum = Humidity(inMillis: 500);
+    hum.getRaw().listen((element) {
+      double value = element;
+      setStateIfMounted(() {
+        humidity = value;
       });
     });
   }
@@ -96,11 +106,12 @@ class _WeatherRouteState extends State<WeatherRoute> {
                               //const SizedBox(height: space * 4),
                               Text(currentWeather[0]),
                               Text('Gefühlt wie ' +
-                                  feelingTemperature.toString() +
+                                  feelingTemperature.toStringAsFixed(1) +
                                   '°'),
-                              Text('Luftdruck: ' + airPressure.toString()),
+                              Text('Luftfeuchtigkeit: ' +
+                                  humidity.toStringAsFixed(2)),
                               SizedBox(height: space / 2),
-                              Text(temperature.toString() + '°',
+                              Text(temperature.toStringAsFixed(1) + '°',
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: PrimaryColor,
