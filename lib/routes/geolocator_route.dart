@@ -16,32 +16,21 @@ class GeolocatorRoute extends StatefulWidget {
 }
 
 class _GeolocatorRouteState extends State<GeolocatorRoute> {
-  LatLng currentLocation = LatLng(0, 0);
+  late LatLng currentLocation;
   // final LatLng rememberdLocation = LatLng(48.209209, 16.372780);
 
   var tablePadding = const EdgeInsets.all(15.0);
 
   late Position pos;
   late Gps gps;
-  late String currentDirection;
+  String currentDirection = "...";
 
   @override
   void initState() {
     super.initState();
 
     pos = Position(inMillis: 500);
-    pos.getCurrentDirection().forEach((element) {
-      setState(() {
-        currentDirection = getCurrentDirection(element);
-      });
-    });
-
     gps = Gps(inMillis: 500);
-    gps.getRaw().listen((element) {
-      setState(() {
-        currentLocation = LatLng(element.latitude, element.longitude);
-      });
-    });
   }
 
   @override
@@ -59,6 +48,18 @@ class _GeolocatorRouteState extends State<GeolocatorRoute> {
             BorderSide(width: 2, color: Background, style: BorderStyle.solid),
         verticalInside:
             BorderSide(width: 2, color: Background, style: BorderStyle.solid));
+
+    gps.getRaw().listen((element) {
+      setState(() {
+        currentLocation = LatLng(element.latitude, element.longitude);
+      });
+    });
+
+    pos.getCurrentDirection().forEach((element) {
+      setState(() {
+        currentDirection = getCurrentDirection(element);
+      });
+    });
 
     return Scaffold(
         appBar: AppBar(
