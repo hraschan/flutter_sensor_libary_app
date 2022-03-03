@@ -55,7 +55,11 @@ class _ProximitiyRouteState extends State<ProximitiyRoute> {
         padding: const EdgeInsets.all(25.0),
         child: Column(
           children: [
-            const RecordButtonWidget(route: ProximityRecordingRoute()),
+            //const RecordButtonWidget(route: ProximityRecordingRoute()),
+            const Align(
+                alignment: Alignment.centerRight,
+                child:
+                    (Padding(padding: EdgeInsets.all(5.00), child: Text("")))),
             Column(
               children: [
                 const SizedBox(height: 25),

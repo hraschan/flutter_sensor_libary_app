@@ -31,6 +31,12 @@ class _GeolocatorRouteState extends State<GeolocatorRoute> {
 
     pos = Position(inMillis: 500);
     gps = Gps(inMillis: 500);
+
+    gps.getRaw().listen((element) {
+      setState(() {
+        currentLocation = LatLng(element.latitude, element.longitude);
+      });
+    });
   }
 
   @override
@@ -48,12 +54,6 @@ class _GeolocatorRouteState extends State<GeolocatorRoute> {
             BorderSide(width: 2, color: Background, style: BorderStyle.solid),
         verticalInside:
             BorderSide(width: 2, color: Background, style: BorderStyle.solid));
-
-    gps.getRaw().listen((element) {
-      setStateIfMounted(() {
-        currentLocation = LatLng(element.latitude, element.longitude);
-      });
-    });
 
     pos.getCurrentDirection().forEach((element) {
       setStateIfMounted(() {
